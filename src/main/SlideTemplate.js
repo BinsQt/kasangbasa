@@ -1,44 +1,32 @@
-import React, { useState, useEffect, cloneElement, isValidElement } from 'react';
-import { pauseAudio, stopAudio, resumeAudio } from './ListnrTTS';
+import React, { useEffect, Children } from 'react'; // Removed useState, cloneElement, isValidElement
+import { stopAudio } from './ListnrTTS'; // Only stopAudio is directly relevant for unmount
 
 const SlideTemplate = ({ backgroundImage, children }) => {
-  const [isPaused, setIsPaused] = useState(false);
-
-  // Function to pause the audio
-  const handlePause = () => {
-    pauseAudio();
-    setIsPaused(true);
-  };
-
-  // Function to resume or restart the audio
-  const handleResume = () => {
-    if (isPaused) {
-      resumeAudio(); // Resume the paused audio
-    } else {
-      stopAudio(); // Ensure any existing audio is stopped
-      // Implement logic to restart TTS if needed
-    }
-    setIsPaused(false);
-  };
 
   // Stop audio when the component unmounts
+  // This ensures that if a user navigates away from a slide or the module,
+  // any playing audio from that slide is stopped.
   useEffect(() => {
     return () => {
       stopAudio(); // Stop any ongoing audio when unmounting
     };
-  }, []);
+  }, []); // Empty dependency array means this effect runs once on mount and cleanup on unmount
 
   return (
     <div className="p-6 container mx-auto mt-5">
-      <div 
-        style={{ backgroundImage: `url('${backgroundImage}')`, minHeight: '60vh' }} 
+      <div
+        style={{ backgroundImage: `url('${backgroundImage}')`, minHeight: '60vh' }}
         className="p-3 rounded-lg bg-cover bg-center flex flex-col"
       >
-        {React.Children.map(children, (child) =>
-          isValidElement(child) ? cloneElement(child) : child
-        )}
+        {/*
+          Render children directly. The audio control logic (play/pause/mute)
+          is handled by the parent Module component, making handlePause/onResume
+          unnecessary in this template component.
+          Using Children.toArray to ensure children are always an array,
+          which is good practice when mapping over children.
+        */}
+        {Children.toArray(children)}
       </div>
-      
     </div>
   );
 };
