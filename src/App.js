@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './auth/Login';
 import Register from './auth/Register';
@@ -8,15 +8,28 @@ import Module from './main/Module';
 import VoiceOverSelect from './main/VoiceOverSelect';
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // Initialize authentication state from localStorage
+  const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isLoggedIn') === 'true');
 
+  // Update login handler to store authentication status in localStorage
   const handleLogin = () => {
+    localStorage.setItem('isLoggedIn', 'true');
     setIsAuthenticated(true);
   };
 
+  // Update logout handler to remove authentication status from localStorage
   const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
     setIsAuthenticated(false);
   };
+
+  // Check authentication status on component mount
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    if (isLoggedIn !== isAuthenticated) {
+      setIsAuthenticated(isLoggedIn);
+    }
+  }, [isAuthenticated]);
 
   return (
     <Router>

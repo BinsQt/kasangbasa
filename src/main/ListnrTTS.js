@@ -1,74 +1,62 @@
-let currentAudio = null;
+// ListnrTTS.js
+export let currentUtterance = null;
+let isPaused = false;
 
 export const speakLocal = (text) => {
-  console.log("speakLocal called with text:", text);
+  console.log('speakLocal called with text:', text);
   if ('speechSynthesis' in window) {
+    if (currentUtterance) {
+      window.speechSynthesis.cancel();
+    }
+
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = "fil-PH"; // Set the language to Filipino (Philippines)
+    utterance.lang = 'fil-PH'; // Set the language to Filipino (Philippines)
+
+    // Event listeners for utterance
+    utterance.onend = () => {
+      console.log('Speech has finished.');
+      currentUtterance = null;
+    };
+
+    utterance.onerror = (event) => {
+      console.error('Speech synthesis error:', event.error);
+      currentUtterance = null;
+    };
+
     window.speechSynthesis.speak(utterance);
-    return utterance; // Return the utterance for reference
+    isPaused = false; // Reset the paused flag
+    currentUtterance = utterance; // Store the current utterance
+    return Promise.resolve(utterance); // Return the utterance as a resolved promise
   } else {
-    console.error("Text-to-Speech not supported in this browser.");
-    return null;
+    console.error('Text-to-Speech not supported in this browser.');
+    return Promise.reject(new Error('Text-to-Speech not supported in this browser.'));
   }
 };
 
 export const convertTextToSpeech = (text) => {
-  console.log("convertTextToSpeech called with text:", text);
-  return new Promise((resolve, reject) => {
-    const lang = "fil-PH";
-    const userAgent = navigator.userAgent.toLowerCase();
-
-    switch (true) {
-      case /android/.test(userAgent):
-        console.log("Platform: Android");
-        // Android-specific TTS logic here
-        // Resolve or reject based on the outcome
-        resolve();
-        break;
-      case /iphone|ipad|ipod/.test(userAgent):
-        console.log("Platform: iOS");
-        // iOS-specific TTS logic here
-        // Resolve or reject based on the outcome
-        resolve();
-        break;
-      default:
-        console.log("Platform: Browser");
-        const utterance = speakLocal(text);
-        if (utterance) {
-          resolve();
-        } else {
-          reject(new Error("TTS conversion failed"));
-        }
-    }
-  });
+  console.log('convertTextToSpeech called with text:', text);
+  return speakLocal(text); // This will now return a promise
 };
 
 export const stopAudio = () => {
-  console.log("stopAudio called");
-  if (currentAudio) {
-    currentAudio.pause();
-    currentAudio.currentTime = 0;
-    currentAudio = null;
+  console.log('stopAudio called');
+  window.speechSynthesis.cancel();
+  isPaused = false;
+  currentUtterance = null;
+};
+
+export const pauseAudio = () => {
+  console.log('pauseAudio called');
+  if (currentUtterance) {
+    window.speechSynthesis.pause();
+    isPaused = true;
   }
 };
 
 export const resumeAudio = () => {
-  console.log("resumeAudio called");
-  if (currentAudio) {
-    currentAudio.play().catch((error) => {
-      if (error.name === 'AbortError') {
-        console.log('The play() request was interrupted.');
-      } else {
-        console.error('Error resuming audio:', error);
-      }
-    });
-  }
-};
-
-export const pauseAudio = () => {
-  console.log("pauseAudio called");
-  if (currentAudio) {
-    currentAudio.pause();
+  console.log('resumeAudio called');
+  if (isPaused && currentUtterance) {
+    window.speechSynthesis.resume();
+    isPaused = false;
   }
 };
