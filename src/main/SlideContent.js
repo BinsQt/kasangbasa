@@ -145,7 +145,7 @@ const SlideContent = ({ slide, readAloud }) => {
               {slide.images && (
                 <div className="flex justify-center items-center flex-wrap mt-5">
                   {slide.images.map((img, index) => (
-                    <img key={index} src={img} alt={`Example ${index + 1}`} className="w-full md:w-auto h-auto max-h-60 rounded-lg shadow-md object-contain" onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/300x200/cccccc/000000?text=Image+Not+Found`; }} />
+                    <img key={index} src={img} className="w-full md:w-auto h-auto max-h-60 rounded-lg shadow-md object-contain" onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/300x200/cccccc/000000?text=Image+Not+Found`; }} />
                   ))}
                 </div>
               )}
@@ -327,7 +327,7 @@ const SlideContent = ({ slide, readAloud }) => {
                 <button
                   onClick={handleSubmit}
                   disabled={isCorrect !== null || !selectedOption} // Disable after submission or if no option is selected
-                  className="mt-6 bg-blue-600 text-black p-3 rounded-lg shadow-md transition-all duration-300 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                  className="mt-6 bg-blue-600 p-3 rounded-lg shadow-md transition-all duration-300 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-white"
                 >
                   {isCorrect !== null ? (isCorrect ? 'Correct!' : 'Try Again') : 'Submit Answer'}
                 </button>
