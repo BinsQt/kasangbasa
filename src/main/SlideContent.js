@@ -105,7 +105,7 @@ const SlideContent = ({ slide, readAloud }) => {
               {slide.images && (
                 <div className="flex justify-center items-center gap-4 md:gap-10 flex-wrap mt-5">
                   {slide.images.map((img, index) => (
-                    <img key={index} src={img} alt={`Example ${index + 1}`} className="w-full md:w-auto h-auto max-h-80 rounded-lg shadow-md object-contain" onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/300x200/cccccc/000000?text=Image+Not+Found`; }} />
+                    <img key={index} src={img} className="w-full md:w-auto h-auto max-h-80 rounded-lg shadow-md object-contain" onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/300x200/cccccc/000000?text=Image+Not+Found`; }} />
                   ))}
                 </div>
               )}
@@ -225,7 +225,7 @@ const SlideContent = ({ slide, readAloud }) => {
               {slide.images && (
                 <div className="flex justify-center items-center flex-wrap gap-4 md:gap-10 mb-5">
                   {slide.images.map((img, index) => (
-                    <img key={index} src={img} alt={`Example ${index + 1}`} className="w-40 h-auto rounded-lg shadow-md object-contain" onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/160x160/cccccc/000000?text=Image+Not+Found`; }} />
+                    <img key={index} src={img} className="w-40 h-auto rounded-lg shadow-md object-contain" onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/160x160/cccccc/000000?text=Image+Not+Found`; }} />
                   ))}
                 </div>
               )}
@@ -244,7 +244,7 @@ const SlideContent = ({ slide, readAloud }) => {
               {slide.images && (
                 <div className="flex justify-center items-center flex-wrap gap-4 md:gap-10 mb-5">
                   {slide.images.map((img, index) => (
-                    <img key={index} src={img} alt={`Example ${index + 1}`} className="w-40 h-40 rounded-lg shadow-md object-contain" onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/160x160/cccccc/000000?text=Image+Not+Found`; }} />
+                    <img key={index} src={img} className="w-40 h-40 rounded-lg shadow-md object-contain" onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/160x160/cccccc/000000?text=Image+Not+Found`; }} />
                   ))}
                 </div>
               )}
@@ -293,7 +293,7 @@ const SlideContent = ({ slide, readAloud }) => {
               {slide.images && (
                 <div className="flex justify-center items-center flex-wrap gap-4 md:gap-10 mb-5">
                   {slide.images.map((img, index) => (
-                    <img key={index} src={img} alt={`Question Image ${index + 1}`} className="w-full md:w-auto h-auto max-h-40 rounded-lg shadow-md object-contain" onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/160x160/cccccc/000000?text=Image+Not+Found`; }} />
+                    <img key={index} src={img} className="w-full md:w-auto h-auto max-h-40 rounded-lg shadow-md object-contain" onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/160x160/cccccc/000000?text=Image+Not+Found`; }} />
                   ))}
                 </div>
               )}
@@ -367,7 +367,7 @@ const SlideContent = ({ slide, readAloud }) => {
               {slide.images && (
                 <div className="flex justify-center items-center flex-wrap gap-4 md:gap-10 mt-5">
                   {slide.images.map((img, index) => (
-                    <img key={index} src={img} alt={`Content Image ${index + 1}`} className="w-full md:w-auto h-auto max-h-80 rounded-lg shadow-md object-contain" onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/300x200/cccccc/000000?text=Image+Not+Found`; }} />
+                    <img key={index} src={img}  className="w-full md:w-auto h-auto max-h-80 rounded-lg shadow-md object-contain" onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/300x200/cccccc/000000?text=Image+Not+Found`; }} />
                   ))}
                 </div>
               )}
